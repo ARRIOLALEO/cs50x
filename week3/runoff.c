@@ -128,34 +128,33 @@ int main(int argc, string argv[])
 // Record preference if vote is valid
 bool vote(int voter, int rank, string name)
 {
-    bool existName = false;
-      for ( int i = 0 , n = MAX_CANDIDATES ; i < n ; i++)
+    bool exist = false ;
+    for( int j = 0 , w =candidate_count ; j < w ;j++)
+    {
+        if(strcmp(name, candidates[j].name))
+        {
+            exist = true;
+        }
+    }
+    if(exist)
+    {
+      for ( int i = 0 , n = candidate_count  ;i < n ; i++)
       {
         if (strcmp(name , candidates[i].name) == 0)
         {
             preferences[voter][rank] = i ;
-            existName = true;
-            break;
+            return true;
         }
+       }
     }
-    if(existName){
-        return true;
-    }else{
-        return false;
-    }
+         return false;
 }
 
 // Tabulate votes for non-eliminated candidates
 void tabulate(void)
 {
-    for (int i = 0 , n = voter_count; i < n ; i++){
-        for (int j = 0 , v = candidate_count; j < v ; j++)
-        {
-            if (!candidates[preferences[i][j]].eliminated)
-            {
-              candidates[preferences[i][j]].votes++;
-            }
-        }
+    for(int i = 0 , n = voter_count ; i < n  ; i++ ){
+        candidates[preferences[i][0]].votes += 1;
     }
     return;
 }
@@ -169,7 +168,7 @@ bool print_winner(void)
       for( int i = 0 , n = candidate_count - 1 ; i < n ;i ++){
         if(candidates[i].votes >= minToWin)
         {
-             printf("%s",candidates[i].name);
+            printf("%s",candidates[i].name);
             theeWinner = true;
             break;
         }
