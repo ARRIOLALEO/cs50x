@@ -129,41 +129,45 @@ int main(int argc, string argv[])
 bool vote(int voter, int rank, string name)
 {
     bool exist = false ;
-    for( int j = 0 , w =candidate_count ; j < w ;j++)
+    for (int j = 0, w = candidate_count ; j < w ; j++)
     {
-        if(strcmp(name, candidates[j].name))
+        if (strcmp(name, candidates[j].name))
         {
             exist = true;
         }
     }
-    if(exist)
+    if (exist)
     {
-      for ( int i = 0 , n = candidate_count  ;i < n ; i++)
-      {
-        if (strcmp(name , candidates[i].name) == 0)
+        for (int i = 0, n = candidate_count  ; i < n ; i++)
         {
-            preferences[voter][rank] = i ;
-            return true;
+            if (strcmp(name, candidates[i].name) == 0)
+            {
+                preferences[voter][rank] = i ;
+                return true;
+            }
         }
-       }
     }
-         return false;
+    return false;
 }
 
 // Tabulate votes for non-eliminated candidates
 void tabulate(void)
 {
-   for (int i = 0 , n = voter_count; i < n ; i++){
-       int centinel = 0;
-       bool exit = true;
-       do{
-           if(candidates[preferences[i][centinel]].eliminated == false){
-               candidates[preferences[i][centinel]].votes += 1;
-               exit = false;
-           }
-           centinel += 1;
-       }while(exit);
-   }
+    for (int i = 0, n = voter_count; i < n ; i++)
+    {
+        int centinel = 0;
+        bool exit = true;
+        do
+        {
+            if (candidates[preferences[i][centinel]].eliminated == false)
+            {
+                candidates[preferences[i][centinel]].votes += 1;
+                exit = false;
+            }
+            centinel += 1;
+        }
+        while (exit);
+    }
     return;
 }
 
@@ -171,29 +175,43 @@ void tabulate(void)
 bool print_winner(void)
 {
     // TODO
-     int minToWin = (voter_count / 2) + 1 ;
-     bool weHaveWinner =  false;
-      for( int i = 0 , n = candidate_count  ; i < n ;i ++){
-          int candidate = candidates[i].votes ;
-        if (candidate >= minToWin){
-            printf("%s",candidates[i].name);
-           weHaveWinner = true;
+    int minToWin = ceil(voter_count * 0.5) ;
+    int centinel = 0;
+    bool weHaveWinner = false;
+    string theWinner = "";
+    do
+    {
+        int votesCandidate = candidates[centinel].votes;
+        if (votesCandidate > minToWin)
+        {
+            theWinner = candidates[centinel].name ;
+            weHaveWinner = true ;
         }
+        centinel++;
     }
-  return weHaveWinner ;
+    while (centinel < candidate_count);
+    if (weHaveWinner)
+    {
+        printf("%s\n", theWinner);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 // Return the minimum number of votes any remaining candidate has
 int find_min(void)
 {
     int minimun = voter_count ;
-    for(int i = 0 , n = candidate_count  ; i < n ; i++ )
+    for (int i = 0, n = candidate_count ; i < n ; i++)
     {
-        if(candidates[i].eliminated == false)
+        if (candidates[i].eliminated == false)
         {
-            if(minimun > candidates[i].votes)
+            if (minimun > candidates[i].votes)
             {
-            minimun = candidates[i].votes;
+                minimun = candidates[i].votes;
             }
         }
     }
@@ -205,10 +223,12 @@ bool is_tie(int min)
 {
     // TODO
     bool isTie = true;
-    for( int i = 0 , n = candidate_count ; i < n ; i++)
+    for (int i = 0, n = candidate_count ; i < n ; i++)
     {
-        if(candidates[i].eliminated == false){
-            if(candidates[i].votes != min){
+        if (candidates[i].eliminated == false)
+        {
+            if (candidates[i].votes != min)
+            {
                 isTie = false;
             }
         }
@@ -220,9 +240,11 @@ bool is_tie(int min)
 void eliminate(int min)
 {
     // TODO
-    for( int i = 0 , n = candidate_count ; i < n ; i++){
-        if(candidates[i].votes <= min){
-            candidates[i].eliminated = true ;
+    for (int i = 0, n = candidate_count ; i < n ; i++)
+    {
+        if (candidates[i].votes <= min)
+        {
+            candidates[i].eliminated = true;
         }
     }
     return;
