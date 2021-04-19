@@ -1,0 +1,119 @@
+.header{
+    display:flex;
+    align-items: center;
+}
+.logo{
+    flex:1;
+    text-align:center;
+    color:white;
+    font-size:30px;
+    font-weight:bold;
+}
+.menu{
+    flex:2;
+}
+.jumbotron{
+    height:80vh;
+    width:100%;
+    margin-top: -6%;
+    background-image:url('https://www.bytesized.xyz/content/images/2018/11/clement-h-544786-unsplash-1.jpg');
+    display:flex;
+    background-size:cover;
+    background-position:center;
+}
+.bg-light {
+    background-color: #f8f9fa4f!important;
+}
+.mainText{
+    margin:auto;
+    color:white;
+    font-size:30px;
+    font-weight:bold;
+}
+
+.navbar-light .navbar-brand {
+    color: white !important;
+}
+article img{
+    max-width:250px;
+}
+article{
+    display:flex;
+    padding-bottom:1em;
+}
+.articles{
+    align-items: center;
+    align-content: center;
+    max-width: 60%;
+    margin: auto;
+}
+article div{
+        margin-left: 1.5rem;
+}
+.line{
+    height: 2px;
+    max-width: 50%;
+    margin: auto;
+    margin-bottom: 2em;
+}
+.articles h2{
+    text-align:center;
+}
+
+.aboutme{
+    display:flex;
+    margin:1rem;
+}
+.information h3{
+    text-align: center;
+    margin: 2em;
+}
+.aboutme img{
+    max-width:40%;
+    border-radius:5px;
+}
+.aboutme div p {
+    margin-left:1rem;
+}
+footer{
+    display:flex;
+}
+footer ul{
+    margin:2rem auto;
+    list-style: none;
+    display: flex;
+}
+
+footer ul li{
+    padding: 0 25px;
+}
+.prices{
+display: flex;
+flex-direction: column;
+max-width: 80%;
+margin: auto;
+text-align: center;
+}
+
+@media screen and (max-width: 500px){
+#header {
+    background-color: black !important;
+}
+article{
+flex-direction: column;
+}
+.aboutme{
+flex-direction:column;
+}
+.aboutme img{
+max-width:100%;
+}
+footer ul{
+flex-direction:column;
+}
+
+}
+
+
+
+
